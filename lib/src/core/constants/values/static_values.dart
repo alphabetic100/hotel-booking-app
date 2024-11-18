@@ -4,3 +4,5 @@ class AnimationAsset {
 }
 
 const String imageAsset = "assets/images";
+const String nunito = "Nunito";
+const String openSans = "Open_Sans";

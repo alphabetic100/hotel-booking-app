@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/custom_app_bar.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/custom_button.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/custom_spacing.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/custom_text_button.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/email_text_field.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/or.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/pass_text_field.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_text_button.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/email_text_field.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/or.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/pass_text_field.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
@@ -55,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
                   decoration: InputDecoration(
                       hintText: "Username",
                       hintStyle: CustomStyle.textFieldTitle,
-                      prefixIcon: const Icon(
+                      prefixIcon: Icon(
                         Icons.person_outline_outlined,
                         color: ColorTheme.grey,
                       ),
@@ -95,12 +95,15 @@ class SignUpScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                const VerticalSpace(height: 30),
+                VerticalSpace(height: ScreenSize.height * 0.15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Allready have an account?"),
-                    CustomTextButton(title: "Login")
+                    const Text("Allready have an account? "),
+                    CustomTextButton(
+                      title: "Login",
+                      onTap: () {},
+                    )
                   ],
                 )
               ],

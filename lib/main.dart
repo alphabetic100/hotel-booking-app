@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hotel_booking_app/src/core/features/auth/sign-up/presentation/sign_up_screen.dart';
-
+import 'package:hotel_booking_app/src/core/features/auth/log-in/presentation/log_in_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       // theme: themeData,
       debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+      home: LogInScreen(),
     );
   }
 }

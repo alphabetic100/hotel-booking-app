@@ -18,6 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.transparent,
       title: title.isNotEmpty ? Text(title) : null,
       centerTitle: centerTitle,
       actions: actions,
@@ -28,7 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           width: 50,
           child: GestureDetector(
             onTap: ontapBackButton ?? () => Navigator.of(context).pop(),
-            child: const Center(
+            child: Center(
               child: Icon(
                 Icons.arrow_back,
                 color: ColorTheme.blue,

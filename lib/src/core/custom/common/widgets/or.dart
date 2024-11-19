@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_app/src/core/common/widgets/devider.dart';
+import 'package:hotel_booking_app/src/core/custom/common/widgets/devider.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
 
 class XOr extends StatelessWidget {

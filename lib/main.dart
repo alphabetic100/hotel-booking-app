@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hotel_booking_app/src/core/features/auth/log-in/presentation/log_in_screen.dart';
+import 'package:hotel_booking_app/src/core/constants/utils/themes/app_theme.dart';
+import 'package:hotel_booking_app/src/features/splash-screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // theme: themeData,
+      theme: AppThemeData.themeData,
       debugShowCheckedModeBanner: false,
-      home: LogInScreen(),
+      home: SplashScreen(),
     );
   }
 }

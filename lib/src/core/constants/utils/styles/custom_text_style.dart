@@ -13,13 +13,13 @@ class CustomStyle {
   static TextStyle regularStyle = TextStyle(
     color: ColorTheme.grey,
     fontFamily: openSans,
-    fontSize: 18,
+    fontSize: 15,
   );
   static TextStyle yellowStyle = TextStyle(
     color: ColorTheme.yellow,
     fontFamily: openSans,
     fontWeight: FontWeight.bold,
-    fontSize: 20,
+    fontSize: 15,
   );
   static TextStyle textFieldTitle = TextStyle(
     color: ColorTheme.grey,

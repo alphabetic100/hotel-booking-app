@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hotel_booking_app/src/core/constants/values/static_values.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
@@ -14,6 +15,8 @@ import 'package:hotel_booking_app/src/core/constants/values/strings/app_strings.
 import 'package:hotel_booking_app/src/features/auth/log-in/controllers/error_text_controller.dart';
 import 'package:hotel_booking_app/src/features/auth/log-in/controllers/validation_checker.dart';
 import 'package:hotel_booking_app/src/features/auth/log-in/presentation/log_in_screen.dart';
+import 'package:hotel_booking_app/src/features/auth/sign-up/controller/loading_controller.dart';
+import 'package:hotel_booking_app/src/features/auth/sign-up/services/post_signup.dart';
 import 'package:hotel_booking_app/src/features/auth/sign-up/temp/sign_up_values.dart';
 import 'package:hotel_booking_app/src/features/auth/verify-user/presentation/verify_user_screen.dart';
 
@@ -21,7 +24,9 @@ class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
   final LocalErrorTextController errorTextController =
       Get.put(LocalErrorTextController());
-
+  final PostSignup postSignup = PostSignup();
+  final SignUpLoadingController loadingController =
+      Get.find<SignUpLoadingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +65,12 @@ class SignUpScreen extends StatelessWidget {
                 const VerticalSpace(height: 30),
                 TextField(
                   keyboardType: TextInputType.name,
+                  onChanged: (value) {
+                    name = value;
+                  },
+                  onSubmitted: (value) {
+                    name = value;
+                  },
                   decoration: InputDecoration(
                       hintText: "Username",
                       hintStyle: CustomStyle.textFieldTitle,
@@ -123,13 +134,33 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 const VerticalSpace(height: 35),
                 CustomButton(
-                  onTap: ()  {
-                    //TODO: create account logic
-                    Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => VerifyUserScreen()));
+                  onTap: () async {
+                    final userData = await postSignup.createAccount();
+                    try {
+                      if (userData!.success) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => VerifyUserScreen()));
+                      }
+                    } catch (e) {
+                      Get.defaultDialog(
+                          title: "Worning",
+                          titleStyle: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: openSans,
+                          ),
+                          middleText: "something went worng");
+                    }
                   },
                   child: Center(
-                    child: Text("Continue", style: CustomStyle.buttonTextStyl),
+                    child: Obx(
+                      () => loadingController.isLoading.value
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text("Continue", style: CustomStyle.buttonTextStyl),
+                    ),
                   ),
                 ),
                 const VerticalSpace(height: 20),

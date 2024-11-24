@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/themes/app_theme.dart';
 import 'package:hotel_booking_app/src/features/splash-screen/splash_screen.dart';
 
-void main() {
+void main()  {
+  
   runApp(const MyApp());
 }
 

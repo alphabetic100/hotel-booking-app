@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/values/services/api_service.dart';
@@ -6,8 +5,10 @@ import 'package:hotel_booking_app/src/features/auth/log-in/controllers/error_tex
 import 'package:hotel_booking_app/src/features/auth/log-in/controllers/loading_controller.dart';
 import 'package:hotel_booking_app/src/features/auth/log-in/data/login_data.dart';
 import 'package:hotel_booking_app/src/features/auth/log-in/temp/login_values.dart';
+import 'package:hotel_booking_app/src/features/auth/service/auth_service.dart';
 
 class PostLogin {
+  final AuthService authService = AuthService();
   final dio = Dio();
   bool loginError = false;
   final LoadingController loadingController = Get.put(LoadingController());
@@ -23,7 +24,8 @@ class PostLogin {
       if (response.statusCode == 200) {
         loginError = false;
         final signInData = SignInData.fromJson(response.data);
-        token = signInData.data.token;
+        //for saving the token in local storage
+        authService.saveToken(signInData.data.token);
         return signInData;
       } else if (response.statusCode == 404) {
         loginError = true;

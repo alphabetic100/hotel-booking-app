@@ -4,6 +4,7 @@ import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
 import 'package:hotel_booking_app/src/core/constants/values/static_values.dart';
+import 'package:hotel_booking_app/src/features/auth/service/auth_checker.dart';
 import 'package:hotel_booking_app/src/features/splash-screen/welcome_page.dart';
 import 'package:hotel_booking_app/src/features/splash-screen/controller/splash_screen_controller.dart';
 
@@ -63,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             )
-          : welcomePage,
+          : AuthChecker(),
     );
   }
 }

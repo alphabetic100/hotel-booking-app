@@ -7,7 +7,7 @@ import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_st
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/controller/date_picker_controller.dart';
-import 'package:hotel_booking_app/src/features/home/components/date-picker/view/date_picker_view.dart';
+import 'package:hotel_booking_app/src/features/home/components/date-picker/view/check-in-and-out/Check_in_and_out.dart';
 import 'package:hotel_booking_app/src/features/home/view/guest_and_room_controller.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GuestAndRoomController _guestAndRoomController =
       Get.put(GuestAndRoomController());
-  final DateSelecterView selecterView = DateSelecterView();
+
   final DatePickerController datePickerController =
       Get.put(DatePickerController());
   @override
@@ -102,70 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   )),
                             )),
                         //Check in Check out
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Check-in",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                const VerticalSpace(height: 10),
-                                SizedBox(
-                                  width: ScreenSize.width * 0.42,
-                                  child: Obx(
-                                    () => TextField(
-                                      decoration: InputDecoration(
-                                          hintText: datePickerController
-                                              .checkInDate.value,
-                                          hintStyle: CustomStyle.textFieldTitle,
-                                          suffixIcon: const Icon(
-                                              Icons.calendar_today_outlined),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18))),
-                                      readOnly: true,
-                                      onTap: () =>
-                                          selecterView.checkInDate(context),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Check-out",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                const VerticalSpace(height: 10),
-                                SizedBox(
-                                  width: ScreenSize.width * 0.42,
-                                  child: Obx(
-                                    () => TextField(
-                                      decoration: InputDecoration(
-                                          hintText: datePickerController
-                                              .checkOutDate.value,
-                                          hintStyle: CustomStyle.textFieldTitle,
-                                          suffixIcon: const Icon(
-                                              Icons.calendar_today_outlined),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18),
-                                          )),
-                                      readOnly: true,
-                                      onTap: () =>
-                                          selecterView.checkOutDate(context),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                        CheckInAndOut(),
                         const VerticalSpace(height: 20),
                         // select Guests And Room
                         Row(

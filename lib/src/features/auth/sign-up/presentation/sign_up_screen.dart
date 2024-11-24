@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
@@ -9,13 +10,18 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/pass_text_field
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
-
 import 'package:hotel_booking_app/src/core/constants/values/strings/app_strings.dart';
+import 'package:hotel_booking_app/src/features/auth/log-in/controllers/error_text_controller.dart';
+import 'package:hotel_booking_app/src/features/auth/log-in/controllers/validation_checker.dart';
 import 'package:hotel_booking_app/src/features/auth/log-in/presentation/log_in_screen.dart';
+import 'package:hotel_booking_app/src/features/auth/sign-up/temp/sign_up_values.dart';
 import 'package:hotel_booking_app/src/features/auth/verify-user/presentation/verify_user_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
+  final LocalErrorTextController errorTextController =
+      Get.put(LocalErrorTextController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +72,61 @@ class SignUpScreen extends StatelessWidget {
                       )),
                 ),
                 const VerticalSpace(height: 30),
-                const EmailTextField(),
+                //
+                //Email Text Field
+                EmailTextField(
+                  onChanged: (String value) {
+                    bool isValid = emailValidationChecker(value);
+                    if (!isValid) {
+                      errorTextController.emailErrorText.value =
+                          "Enter a valid email address";
+                    } else {
+                      errorTextController.emailErrorText.value = "";
+                      signupEmail = value;
+                    }
+                  },
+                  onSubmitted: (String value) {
+                    bool isValid = emailValidationChecker(value);
+                    if (!isValid) {
+                      errorTextController.emailErrorText.value =
+                          "Enter a valid email address";
+                    } else {
+                      errorTextController.emailErrorText.value = "";
+                      signupEmail = value;
+                    }
+                  },
+                ),
                 const VerticalSpace(height: 30),
-                const PassTextField(),
+                //
+                //Password Text Field
+                PassTextField(
+                  onChanged: (String value) {
+                    bool isValid = passwordValidationChecker(value);
+                    if (!isValid) {
+                      errorTextController.passwordErrorText.value =
+                          "Enter a valid email address";
+                    } else {
+                      errorTextController.passwordErrorText.value = "";
+                      signUpPass = value;
+                    }
+                  },
+                  onSubmitted: (String value) {
+                    bool isValid = passwordValidationChecker(value);
+                    if (!isValid) {
+                      errorTextController.passwordErrorText.value =
+                          "The passwor must be a minumum lengh to 8";
+                    } else {
+                      errorTextController.passwordErrorText.value = "";
+                      signUpPass = value;
+                    }
+                  },
+                ),
                 const VerticalSpace(height: 35),
                 CustomButton(
-                  onTap: () {
-                    //TODO: check validation logig
+                  onTap: ()  {
+                    //TODO: create account logic
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => VerifyUserScreen()));
+                          builder: (context) => VerifyUserScreen()));
                   },
                   child: Center(
                     child: Text("Continue", style: CustomStyle.buttonTextStyl),
@@ -111,7 +163,7 @@ class SignUpScreen extends StatelessWidget {
                       title: "Login",
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LogInScreen()));
+                            builder: (context) => LogInScreen()));
                       },
                     )
                   ],

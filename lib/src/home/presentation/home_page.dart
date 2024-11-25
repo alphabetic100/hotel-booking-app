@@ -20,11 +20,11 @@ class HomePage extends StatelessWidget {
       body: PageView(
         controller: _pageController.controller,
         onPageChanged: (value) => _pageController.pageChange(value),
-        children: const [
-          HomeScreen(),
-          FavoritesScreen(),
-          MyBookings(),
-          ChatScreen(),
+        children: [
+          const HomeScreen(),
+          const FavoritesScreen(),
+          const MyBookings(),
+          const ChatScreen(),
           ProfileScreen()
         ],
       ),

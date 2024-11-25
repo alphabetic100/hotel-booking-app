@@ -26,6 +26,7 @@ class PostLogin {
         final signInData = SignInData.fromJson(response.data);
         //for saving the token in local storage
         authService.saveToken(signInData.data.token);
+        
         return signInData;
       } else if (response.statusCode == 404) {
         loginError = true;

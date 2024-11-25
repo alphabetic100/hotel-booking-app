@@ -3,10 +3,15 @@ import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
   RxInt currentPage = 0.obs;
+  @override
+  void onInit() {
+    currentPage.value = 0;
+    super.onInit();
+  }
+
   final PageController controller = PageController();
   void pageChange(value) {
     currentPage.value = value;
-    print(currentPage.value);
   }
 
   void jumpInto(value) {

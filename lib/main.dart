@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/themes/app_theme.dart';
 import 'package:hotel_booking_app/src/features/splash-screen/splash_screen.dart';
 
-void main()  {
-  
+void main() {
   runApp(const MyApp());
 }
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppThemeData.themeData,
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

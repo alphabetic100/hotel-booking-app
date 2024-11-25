@@ -121,9 +121,8 @@ class WelcomePage extends StatelessWidget {
                     const VerticalSpace(height: 20),
                     CustomButton(
                         onTap: () {
-                          //TODO: check user is allready loged in or not
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>  SignUpScreen()));
+                              builder: (context) => SignUpScreen()));
                         },
                         child: Center(
                           child: Text(
@@ -140,7 +139,7 @@ class WelcomePage extends StatelessWidget {
                           title: "Login",
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>  LogInScreen()));
+                                builder: (context) => LogInScreen()));
                           },
                         ),
                       ],

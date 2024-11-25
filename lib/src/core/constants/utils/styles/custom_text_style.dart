@@ -10,6 +10,12 @@ class CustomStyle {
     fontWeight: FontWeight.bold,
     fontSize: 25,
   );
+  static TextStyle whiteTitleStyle = TextStyle(
+    color: ColorTheme.white,
+    fontFamily: nunito,
+    fontWeight: FontWeight.bold,
+    fontSize: 25,
+  );
   static TextStyle regularStyle = TextStyle(
     color: ColorTheme.grey,
     fontFamily: openSans,

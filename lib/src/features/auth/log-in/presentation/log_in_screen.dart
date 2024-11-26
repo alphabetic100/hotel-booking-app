@@ -129,23 +129,26 @@ class LogInScreen extends StatelessWidget {
                     final userData = await postLogin.userLogIn();
                     if (!postLogin.loginError && userData!.success) {
                       Get.defaultDialog(
-                        title: "Login Success",
+                        backgroundColor: Colors.transparent,
+                        title: "Success",
+                        titlePadding: const EdgeInsets.all(8),
                         titleStyle: const TextStyle(
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 23, 255, 31),
                           fontSize: 25,
                           fontFamily: openSans,
                           fontWeight: FontWeight.bold,
                         ),
                         middleText: userData.message,
+                        middleTextStyle: CustomStyle.whiteStyle,
                       );
                       Future.delayed(const Duration(milliseconds: 500), () {
                         Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) {
-                            return HomePage();
-                            
-                          },),
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return HomePage();
+                            },
+                          ),
                           (route) => false,
-                          
                         );
                       });
                     } else {

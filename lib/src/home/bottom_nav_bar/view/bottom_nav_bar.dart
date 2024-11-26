@@ -33,9 +33,9 @@ class CustomNavBar extends StatelessWidget {
                 textStyle: CustomStyle.titleStyle,
               ),
               GButton(
-                icon: Icons.home_outlined,
+                icon: Icons.broadcast_on_home_outlined,
                 iconColor: ColorTheme.grey,
-                text: '''My Bookings''',
+                text: "All Rooms",
                 textStyle: CustomStyle.titleStyle,
               ),
               GButton(

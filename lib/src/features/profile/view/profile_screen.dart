@@ -10,7 +10,7 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.
 import 'package:hotel_booking_app/src/features/auth/service/auth_service.dart';
 import 'package:hotel_booking_app/src/features/auth/sign-up/presentation/sign_up_screen.dart';
 import 'package:hotel_booking_app/src/features/favorites/view/favorites_screen.dart';
-import 'package:hotel_booking_app/src/features/my-bookings/view/my_bookings.dart';
+import 'package:hotel_booking_app/src/features/all-rooms/view/all_rooms.dart';
 import 'package:hotel_booking_app/src/features/profile/components/edit_profile_view.dart';
 import 'package:hotel_booking_app/src/features/profile/components/recently_visited_screen.dart';
 
@@ -131,7 +131,7 @@ class ProfileScreen extends StatelessWidget {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
                               return const CustomDetailsPageMockup(
-                                boady: MyBookings(),
+                                boady: AllRooms(),
                               );
                             }));
                           },
@@ -167,11 +167,24 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           prefixIcon: Icons.logout,
                           onTap: () {
-                            authService.removeToken();
-                            Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(builder: (context) {
-                              return SignUpScreen();
-                            }), (route) => false);
+                            Get.defaultDialog(
+                              // backgroundColor: Colors.transparent,
+
+                              title: "Worning",
+                              titleStyle: CustomStyle.redTitleStyle,
+                              middleText: "Are you sure you want to log out?",
+                              middleTextStyle: CustomStyle.regularStyle,
+                              textCancel: "No",
+
+                              textConfirm: "Yes",
+                              onConfirm: () {
+                                authService.removeToken();
+                                Navigator.pushAndRemoveUntil(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return SignUpScreen();
+                                }), (route) => false);
+                              },
+                            );
                           },
                         ),
                       ],

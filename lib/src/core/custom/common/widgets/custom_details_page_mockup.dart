@@ -8,10 +8,12 @@ class CustomDetailsPageMockup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorTheme.scaffoldBackgroundColor,
-      appBar: const CustomAppBar(),
-      body: boady,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorTheme.scaffoldBackgroundColor,
+        appBar: const CustomAppBar(),
+        body: boady,
+      ),
     );
   }
 }

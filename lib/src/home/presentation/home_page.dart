@@ -4,7 +4,7 @@ import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/features/chats/view/chat_screen.dart';
 import 'package:hotel_booking_app/src/features/favorites/view/favorites_screen.dart';
 import 'package:hotel_booking_app/src/features/home/view/home_screen.dart';
-import 'package:hotel_booking_app/src/features/my-bookings/view/my_bookings.dart';
+import 'package:hotel_booking_app/src/features/all-rooms/view/all_rooms.dart';
 import 'package:hotel_booking_app/src/features/profile/view/profile_screen.dart';
 import 'package:hotel_booking_app/src/home/bottom_nav_bar/view/bottom_nav_bar.dart';
 import 'package:hotel_booking_app/src/home/controller/home_page_controller.dart';
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
         children: [
           const HomeScreen(),
           const FavoritesScreen(),
-          const MyBookings(),
+          const AllRooms(),
           const ChatScreen(),
           ProfileScreen()
         ],

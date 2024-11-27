@@ -54,7 +54,6 @@ class AllRooms extends StatelessWidget {
             const VerticalSpace(height: 10),
             Expanded(
               child: SizedBox(
-                height: 400,
                 width: ScreenSize.width,
                 child: RoomsListView(),
                 //     height: ScreenSize.height * 0.6,

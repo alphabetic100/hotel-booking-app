@@ -8,11 +8,10 @@ class SplashScreenController extends GetxController {
   Future<void> simulateLoading() async {
     bool islogedIn = await authService.isLoggedIn();
     await Future.delayed(const Duration(seconds: 3), () {
-     
       if (islogedIn) {
-        Get.to(HomePage());
+        Get.to(() => const HomePage());
       } else {
-        Get.to(const WelcomePage());
+        Get.to(() => const WelcomePage());
       }
     });
   }

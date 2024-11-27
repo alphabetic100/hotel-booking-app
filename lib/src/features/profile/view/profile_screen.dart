@@ -11,6 +11,7 @@ import 'package:hotel_booking_app/src/features/auth/service/auth_service.dart';
 import 'package:hotel_booking_app/src/features/auth/sign-up/presentation/sign_up_screen.dart';
 import 'package:hotel_booking_app/src/features/favorites/view/favorites_screen.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/view/all_rooms.dart';
+import 'package:hotel_booking_app/src/features/global/functions/fetch_profile_details.dart';
 import 'package:hotel_booking_app/src/features/profile/components/edit_profile_view.dart';
 import 'package:hotel_booking_app/src/features/profile/components/recently_visited_screen.dart';
 
@@ -46,12 +47,12 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Md Nazmlu Hasan",
+                          profileData.data.name,
                           style: CustomStyle.whiteTitleStyle,
                         ),
                         const VerticalSpace(height: 5),
                         Text(
-                          "example@gmail.com",
+                         profileData.data.email,
                           style: CustomStyle.yellowStyle,
                         ),
                       ],

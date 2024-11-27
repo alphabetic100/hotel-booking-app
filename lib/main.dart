@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppThemeData.themeData,
       debugShowCheckedModeBanner: false,
-      home:const SafeArea(
-        
-        child:  SplashScreen()),
+      home: const SafeArea(child: SplashScreen()),
     );
   }
 }

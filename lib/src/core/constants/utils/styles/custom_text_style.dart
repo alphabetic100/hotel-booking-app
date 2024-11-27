@@ -16,6 +16,12 @@ class CustomStyle {
     fontWeight: FontWeight.bold,
     fontSize: 25,
   );
+  static TextStyle blackStyle = TextStyle(
+    color: ColorTheme.black,
+    fontFamily: nunito,
+    fontWeight: FontWeight.bold,
+    fontSize: 25,
+  );
   static TextStyle redTitleStyle = const TextStyle(
     color: Colors.red,
     fontFamily: nunito,
@@ -27,7 +33,7 @@ class CustomStyle {
     fontFamily: openSans,
     fontSize: 15,
   );
-   static TextStyle whiteStyle = TextStyle(
+  static TextStyle whiteStyle = TextStyle(
     color: ColorTheme.white,
     fontFamily: openSans,
     fontSize: 15,
@@ -38,7 +44,7 @@ class CustomStyle {
     fontWeight: FontWeight.bold,
     fontSize: 15,
   );
-    static TextStyle blueTextStyle = TextStyle(
+  static TextStyle blueTextStyle = TextStyle(
     color: ColorTheme.blue,
     fontFamily: openSans,
     fontWeight: FontWeight.bold,

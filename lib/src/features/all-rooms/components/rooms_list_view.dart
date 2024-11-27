@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
+import 'package:hotel_booking_app/src/features/all-rooms/components/grid_components.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/func/dynamic_height.dart';
 
 class RoomsListView extends StatefulWidget {
   const RoomsListView({super.key});
 
   @override
-  _RoomsListViewState createState() => _RoomsListViewState();
+  RoomsListViewState createState() => RoomsListViewState();
 }
 
-class _RoomsListViewState extends State<RoomsListView> {
+class RoomsListViewState extends State<RoomsListView> {
   final ScrollController _controller1 = ScrollController();
   final ScrollController _controller2 = ScrollController();
   bool _isController1Scrolling = false;
@@ -63,6 +64,7 @@ class _RoomsListViewState extends State<RoomsListView> {
                     height: height,
                     width: 10,
                     color: Colors.red,
+                    child: GridComponents(),
                   ),
                 ),
               );
@@ -84,6 +86,7 @@ class _RoomsListViewState extends State<RoomsListView> {
                     height: height,
                     width: 10,
                     color: Colors.yellow,
+                    child: GridComponents(),
                   ),
                 ),
               );

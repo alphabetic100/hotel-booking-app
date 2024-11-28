@@ -8,6 +8,7 @@ import 'package:hotel_booking_app/src/features/all-rooms/func/dynamic_height.dar
 import 'package:hotel_booking_app/src/features/all-rooms/func/odd_even_list.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/service/get_all_room_details.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/service/model/all_room_data.dart';
+import 'package:hotel_booking_app/src/features/room-details/view/room_details_screen.dart';
 
 class RoomsListView extends StatefulWidget {
   const RoomsListView({super.key});
@@ -23,8 +24,10 @@ class RoomsListViewState extends State<RoomsListView> {
   bool _isController2Scrolling = false;
   final AllRoomLoadingController loadingController =
       Get.put(AllRoomLoadingController());
+
   final AllRoomService service = AllRoomService();
   final OddEvenList oddEvenList = OddEvenList();
+
   AllRoomData? roomData;
   Future fetchAllRoomData() async {
     roomData = await service.getAllRoomData();
@@ -100,9 +103,13 @@ class RoomsListViewState extends State<RoomsListView> {
                             ]),
                         child: GestureDetector(
                           onTap: () {
-                            //will navigat to room details page TODO:
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return const RoomDetailsScreen();
+                            }));
                           },
                           child: GridComponents(
+                            index: oddEvenList.eveList[index],
                             roomNumber: roomData!
                                 .data[oddEvenList.eveList[index]].roomNumber,
                             currentPrice: roomData!
@@ -142,9 +149,14 @@ class RoomsListViewState extends State<RoomsListView> {
                               )
                             ]),
                         child: GestureDetector(
-                          //will navigat to room details page TODO:
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return const RoomDetailsScreen();
+                            }));
+                          },
                           child: GridComponents(
+                            index: oddEvenList.oddList[index],
                             roomNumber: roomData!
                                 .data[oddEvenList.oddList[index]].roomNumber,
                             currentPrice: roomData!

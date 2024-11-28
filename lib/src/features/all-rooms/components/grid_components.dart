@@ -4,16 +4,22 @@ import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
 import 'package:hotel_booking_app/src/core/constants/values/static_values.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
+import 'package:hotel_booking_app/src/features/all-rooms/controller/add_favorite_controller.dart';
 
 class GridComponents extends StatelessWidget {
-  const GridComponents(
-      {super.key,
-      required this.roomNumber,
-      required this.currentPrice,
-      required this.oldPrice});
+  GridComponents({
+    super.key,
+    required this.roomNumber,
+    required this.currentPrice,
+    required this.oldPrice,
+    required this.index,
+  });
+  final int index;
   final String roomNumber;
   final String currentPrice;
   final String oldPrice;
+  final AddFavoriteController favoriteController =
+      Get.put(AddFavoriteController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +30,38 @@ class GridComponents extends StatelessWidget {
         children: [
           Expanded(
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage("$imageAsst/image1.png"),
-                    fit: BoxFit.cover,
-                  )),
-                )),
+              borderRadius: BorderRadius.circular(12),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage("$imageAsst/image1.png"),
+                        fit: BoxFit.cover,
+                      )),
+                    ),
+                  ),
+                  Positioned(
+                      right: 10,
+                      top: 10,
+                      child: Obx(
+                        () => GestureDetector(
+                          onTap: () {
+                            favoriteController.addFavorite(index);
+                          },
+                          child: Icon(
+                            favoriteController.isFavorite(index)
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                            color: ColorTheme.blue,
+                            size: 25,
+                          ),
+                        ),
+                      )),
+                ],
+              ),
+            ),
           ),
 
           //room number

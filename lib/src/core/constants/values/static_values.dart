@@ -3,6 +3,6 @@ class AnimationAsset {
   static const String splashLoading = "$animationAsset/splash-loading.json";
 }
 
-const String imageAsset = "assets/images";
+const String imageAsst = "assets/images";
 const String nunito = "Nunito";
 const String openSans = "Open_Sans";

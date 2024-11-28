@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
+import 'package:hotel_booking_app/src/core/constants/values/static_values.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 
 class GridComponents extends StatelessWidget {
-  const GridComponents({super.key});
-  // final String price;
+  const GridComponents(
+      {super.key,
+      required this.roomNumber,
+      required this.currentPrice,
+      required this.oldPrice});
+  final String roomNumber;
+  final String currentPrice;
+  final String oldPrice;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,17 +24,24 @@ class GridComponents extends StatelessWidget {
         children: [
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Container(
-                color: Colors.white,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage("$imageAsst/image1.png"),
+                    fit: BoxFit.cover,
+                  )),
+                )),
           ),
 
           //room number
-          Text(
-            "room number",
-            style: CustomStyle.blackStyle,
+          SizedBox(
+            width: Get.width,
+            child: Text(
+              roomNumber,
+              style: CustomStyle.blackStyle,
+              textAlign: TextAlign.start,
+            ),
           ),
           //Location Option
           Row(
@@ -44,7 +60,7 @@ class GridComponents extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "\$cp - op USD",
+                  "\$$currentPrice - $oldPrice USD",
                   style: CustomStyle.blueTextStyle,
                 ),
                 const Text(

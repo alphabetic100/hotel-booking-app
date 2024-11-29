@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
+import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -18,8 +19,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      title: title.isNotEmpty ? Text(title) : null,
+      backgroundColor: ColorTheme.scaffoldBackgroundColor,
+      title: title.isNotEmpty
+          ? Text(
+              title,
+              style: CustomStyle.titleStyle,
+            )
+          : null,
       centerTitle: centerTitle,
       actions: actions,
       leading: Padding(

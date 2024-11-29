@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
+import 'package:hotel_booking_app/src/core/constants/values/static_values.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/components/grid_components.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/controller/loading_controller.dart';
 import 'package:hotel_booking_app/src/features/all-rooms/func/dynamic_height.dart';
@@ -37,7 +38,6 @@ class RoomsListViewState extends State<RoomsListView> {
   @override
   void initState() {
     fetchAllRoomData();
-
     super.initState();
 
     _controller1.addListener(() {
@@ -105,7 +105,12 @@ class RoomsListViewState extends State<RoomsListView> {
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return const RoomDetailsScreen();
+                              return RoomDetailsScreen(
+                                image: image1,
+                                roomNumber: roomData!
+                                    .data[oddEvenList.eveList[index]]
+                                    .roomNumber,
+                              );
                             }));
                           },
                           child: GridComponents(
@@ -152,7 +157,12 @@ class RoomsListViewState extends State<RoomsListView> {
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return const RoomDetailsScreen();
+                              return RoomDetailsScreen(
+                                roomNumber: roomData!
+                                    .data[oddEvenList.oddList[index]]
+                                    .roomNumber,
+                                image: image1,
+                              );
                             }));
                           },
                           child: GridComponents(

@@ -4,5 +4,6 @@ class AnimationAsset {
 }
 
 const String imageAsst = "assets/images";
+const String image1 = "assets/images/image1.png";
 const String nunito = "Nunito";
 const String openSans = "Open_Sans";

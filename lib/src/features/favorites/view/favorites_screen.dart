@@ -87,7 +87,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                           crossAxisCount: 2,
                                           mainAxisExtent: Get.height * 0.35),
                                   itemBuilder: (context, index) {
-                                    var favData =
+                                    List<FavouriteDatum> favData =
                                         favoriteData!.data.favouriteData;
                                     return FavoriteList(
                                       roomNumber: favData[index].roomNumber,

@@ -17,7 +17,10 @@ class FavoriteList extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const RoomDetailsScreen();
+            return RoomDetailsScreen(
+              roomNumber: roomNumber,
+              image: image1,
+            );
           }));
         },
         child: Column(

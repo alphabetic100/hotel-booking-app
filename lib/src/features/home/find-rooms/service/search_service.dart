@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/values/services/api_service.dart';
 import 'package:hotel_booking_app/src/features/auth/service/auth_service.dart';
-import 'package:hotel_booking_app/src/features/home/components/date-picker/view/find-rooms/controller/search_loading_controller.dart';
-import 'package:hotel_booking_app/src/features/home/components/date-picker/view/find-rooms/service/model/search_data.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/controller/search_loading_controller.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/service/model/search_data.dart';
 
 class SearchService {
   Dio dio = Dio();

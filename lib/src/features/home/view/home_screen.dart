@@ -8,8 +8,8 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.d
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/controller/date_picker_controller.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/view/check-in-and-out/Check_in_and_out.dart';
-import 'package:hotel_booking_app/src/features/home/components/date-picker/view/find-rooms/view/searched_room_screen.dart';
-import 'package:hotel_booking_app/src/features/home/view/guest_and_room_controller.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/view/searched_room_screen.dart';
+import 'package:hotel_booking_app/src/features/home/controller/guest_and_room_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

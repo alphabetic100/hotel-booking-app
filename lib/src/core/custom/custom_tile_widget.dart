@@ -11,7 +11,12 @@ class CustomTileWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           color: ColorTheme.blue.withOpacity(0.2)),
       child: Padding(
-        padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+        padding: const EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+          left: 15,
+          right: 15,
+        ),
         child: Center(child: child),
       ),
     );

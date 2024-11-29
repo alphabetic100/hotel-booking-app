@@ -135,7 +135,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             children: [
                               CustomTileWidget(
                                 child: Text(
-                                  "${roomData!.data.roomData.discountPercentage}%",
+                                  "${roomData!.data!.roomData!.discountPercentage}%",
                                   style: CustomStyle.blueTextStyle,
                                 ),
                               ),
@@ -148,7 +148,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                       color: ColorTheme.yellow,
                                     ),
                                     Text(
-                                      "${roomData!.data.roomData.rating.substring(0, 3)}(reviews)",
+                                      "${roomData!.data!.roomData!.rating!.substring(0, 3)}(reviews)",
                                       style: CustomStyle.blueTextStyle,
                                     ),
                                   ],
@@ -165,7 +165,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             height: ScreenSize.height * 0.1,
                             width: ScreenSize.width,
                             child: Text(
-                              roomData!.data.roomData.description,
+                              roomData!.data!.roomData!.description!,
                               style: CustomStyle.regularStyle,
                             ),
                           ),
@@ -181,7 +181,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                               backgroundImage: AssetImage(image1),
                             ),
                             title: Text(
-                              roomData!.data.roomData.receptionist.name,
+                              roomData!.data!.roomData!.receptionist!.name!,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -231,7 +231,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount:
-                                    roomData!.data.roomData.gallery.length,
+                                    roomData!.data!.roomData!.gallery!.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.all(8),
@@ -274,7 +274,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "\$${roomData!.data.roomData.currentPrice} USD",
+                              "\$${roomData!.data!.roomData!.currentPrice} USD",
                               style: CustomStyle.titleStyle,
                             ),
                             Text(

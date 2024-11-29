@@ -22,16 +22,18 @@ class RoomDetailsService {
           'Authorization': 'Bearer $token',
         }),
       );
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         loadingController.isLoading.value = false;
         return RoomDetails.fromJson(response.data);
       } else {
         throw Exception("Something went wrong");
       }
-    } catch (e) {
+    }
+     catch (e) {
       throw Exception("something went wrong, error: $e");
-    } finally {
+    } 
+    finally {
       loadingController.isLoading.value = false;
     }
   }

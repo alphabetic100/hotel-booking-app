@@ -8,6 +8,7 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.d
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/controller/date_picker_controller.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/view/check-in-and-out/Check_in_and_out.dart';
+import 'package:hotel_booking_app/src/features/home/components/date-picker/view/find-rooms/view/searched_room_screen.dart';
 import 'package:hotel_booking_app/src/features/home/view/guest_and_room_controller.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final DatePickerController datePickerController =
       Get.put(DatePickerController());
+
   @override
   Widget build(BuildContext context) {
     ScreenSize.init(context);
@@ -242,7 +244,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         const VerticalSpace(height: 20),
                         CustomButton(
                             onTap: () {
-                              //TODO: have to implement find sort
+                              if (datePickerController.checkInDate.value !=
+                                      "DD/MM/YY" &&
+                                  datePickerController.checkOutDate.value !=
+                                      "DD/MM/YY") {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SearchedRoomScreen()));
+                              }
                             },
                             child: Center(
                               child: Text(

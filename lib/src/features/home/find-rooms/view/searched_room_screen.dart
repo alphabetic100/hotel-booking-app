@@ -10,7 +10,7 @@ import 'package:hotel_booking_app/src/core/custom/custom_tile_widget.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/controller/date_picker_controller.dart';
 import 'package:hotel_booking_app/src/features/home/controller/guest_and_room_controller.dart';
 import 'package:hotel_booking_app/src/features/home/find-rooms/components/search_details.dart';
-import 'package:hotel_booking_app/src/features/home/find-rooms/components/sort_bottom_sheet.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/components/sort-bottom-sheet/view/sort_bottom_sheet.dart';
 
 class SearchedRoomScreen extends StatefulWidget {
   const SearchedRoomScreen({super.key});
@@ -93,7 +93,7 @@ class _SearchedRoomScreenState extends State<SearchedRoomScreen> {
                   padding: const EdgeInsets.all(12),
                   child: CustomButton(
                     onTap: () {
-                      Get.bottomSheet(const SortBottomSheet());
+                      Get.bottomSheet( SortBottomSheet());
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

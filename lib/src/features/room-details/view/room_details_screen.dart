@@ -11,6 +11,9 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/core/custom/custom_tile_widget.dart';
+import 'package:hotel_booking_app/src/features/booking/presentation/booking_summary.dart';
+import 'package:hotel_booking_app/src/features/home/components/date-picker/controller/date_picker_controller.dart';
+import 'package:hotel_booking_app/src/features/home/controller/guest_and_room_controller.dart';
 import 'package:hotel_booking_app/src/features/room-details/controller/detail_loading_controller.dart';
 import 'package:hotel_booking_app/src/features/room-details/service/model/room_details.dart';
 import 'package:hotel_booking_app/src/features/room-details/service/room_details_service.dart';
@@ -29,6 +32,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   final RoomDetailsService service = RoomDetailsService();
   final DetailLoadingController loadingController =
       Get.put(DetailLoadingController());
+  final GuestAndRoomController guestAndRoomController =
+      GuestAndRoomController();
+  final DatePickerController datePickerController =
+      Get.put(DatePickerController());
   RoomDetails? roomData;
   Future fetchRoomData() async {
     roomData = await service.getRoomDetails(widget.roomNumber);
@@ -287,15 +294,55 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         SizedBox(
                           width: ScreenSize.width * 0.4,
                           child: CustomButton(
-                            onTap: () {
-                              
-                            },
+                              onTap: () {
+                                var data = roomData!.data!.roomData!;
+                                print(datePickerController.checkInDate.value);
+                                if (datePickerController.checkInDate.value !=
+                                        "DD/MM/YY" &&
+                                    datePickerController.checkOutDate.value !=
+                                        "DD/MM/YY") {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => BookingSummary(
+                                            roomNumber:
+                                                data.roomNumber.toString(),
+                                            currentPrice:
+                                                data.currentPrice.toString(),
+                                            bookingDate: DateTime.now()
+                                                .toString()
+                                                .substring(0, 10),
+                                            checkIN: datePickerController
+                                                .checkInDate.value,
+                                            checkOUt: datePickerController
+                                                .checkOutDate.value,
+                                            guests: guestAndRoomController
+                                                .guests.value
+                                                .toString(),
+                                            rooms: guestAndRoomController
+                                                .room.value
+                                                .toString(),
+                                          )));
+                                } else {
+                                  Get.defaultDialog(
+                                    title: "Allert",
+                                    titleStyle:
+                                        const TextStyle(color: Colors.red),
+                                    middleText:
+                                        "Please select your check-in and check-out date from home",
+                                    middleTextStyle:
+                                        const TextStyle(color: Colors.black),
+                                    onCancel: () {},
+                                    onConfirm: () {
+                                      Get.back();
+                                    },
+                                  );
+                                }
+                              },
                               child: Center(
-                            child: Text(
-                              "Book now",
-                              style: CustomStyle.buttonTextStyl,
-                            ),
-                          )),
+                                child: Text(
+                                  "Book now",
+                                  style: CustomStyle.buttonTextStyl,
+                                ),
+                              )),
                         )
                       ],
                     ),

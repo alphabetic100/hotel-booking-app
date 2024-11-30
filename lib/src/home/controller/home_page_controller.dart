@@ -15,7 +15,6 @@ class HomePageController extends GetxController {
   }
 
   void jumpInto(value) {
-    currentPage.value = value;
     controller.jumpToPage(value);
   }
 }

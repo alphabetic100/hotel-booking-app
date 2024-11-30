@@ -11,7 +11,7 @@ class SearchService {
   final SearchLoadingController loadingController =
       Get.put(SearchLoadingController());
   Future<SearchData> getSearchRoom(String checkIn, String checkOut) async {
-    var token = service.getToken();
+    var token = await service.getToken();
     final queryParams = {
       'check_in_date': checkIn,
       'check_out_date': checkOut,
@@ -25,9 +25,9 @@ class SearchService {
               'Authorization': 'Bearer $token',
             },
           ));
+     
       if (response.statusCode == 200) {
         loadingController.isLoading.value = false;
-        print(response.data);
         return SearchData.fromJson(response.data);
       } else {
         throw Exception("Something went wrong");

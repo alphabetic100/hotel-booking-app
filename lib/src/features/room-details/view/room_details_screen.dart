@@ -75,7 +75,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 color: ColorTheme.blue,
               ),
             );
-          } else if (roomData == null) {
+          }
+          if (roomData == null) {
             return Center(
               child: CircularProgressIndicator(
                 color: ColorTheme.blue,
@@ -135,7 +136,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             children: [
                               CustomTileWidget(
                                 child: Text(
-                                  "${roomData!.data!.roomData!.discountPercentage}%",
+                                  "${roomData!.data!.roomData!.discountPercentage}% OFF",
                                   style: CustomStyle.blueTextStyle,
                                 ),
                               ),
@@ -286,6 +287,9 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         SizedBox(
                           width: ScreenSize.width * 0.4,
                           child: CustomButton(
+                            onTap: () {
+                              
+                            },
                               child: Center(
                             child: Text(
                               "Book now",

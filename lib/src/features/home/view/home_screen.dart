@@ -248,9 +248,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       "DD/MM/YY" &&
                                   datePickerController.checkOutDate.value !=
                                       "DD/MM/YY") {
+                                String checkIn = datePickerController
+                                    .checkInDate.value
+                                    .replaceAll("/", "-");
+                                String checkOut = datePickerController
+                                    .checkOutDate.value
+                                    .replaceAll("/", "-");
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SearchedRoomScreen()));
+                                    builder: (context) => SearchedRoomScreen(
+                                          checkIn: checkIn,
+                                          checkOut: checkOut,
+                                        )));
                               }
                             },
                             child: Center(

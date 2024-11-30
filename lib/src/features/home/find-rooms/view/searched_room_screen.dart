@@ -11,9 +11,15 @@ import 'package:hotel_booking_app/src/features/home/components/date-picker/contr
 import 'package:hotel_booking_app/src/features/home/controller/guest_and_room_controller.dart';
 import 'package:hotel_booking_app/src/features/home/find-rooms/components/search_details.dart';
 import 'package:hotel_booking_app/src/features/home/find-rooms/components/sort-bottom-sheet/view/sort_bottom_sheet.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/controller/search_loading_controller.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/service/model/search_data.dart';
+import 'package:hotel_booking_app/src/features/home/find-rooms/service/search_service.dart';
 
 class SearchedRoomScreen extends StatefulWidget {
-  const SearchedRoomScreen({super.key});
+  const SearchedRoomScreen(
+      {super.key, required this.checkIn, required this.checkOut});
+  final String checkIn;
+  final String checkOut;
 
   @override
   State<SearchedRoomScreen> createState() => _SearchedRoomScreenState();
@@ -21,6 +27,19 @@ class SearchedRoomScreen extends StatefulWidget {
 
 class _SearchedRoomScreenState extends State<SearchedRoomScreen> {
   final DatePickerController controller = Get.put(DatePickerController());
+  final SearchLoadingController loadingController =
+      Get.put(SearchLoadingController());
+  final SearchService service = SearchService();
+  SearchData? data;
+  Future fetchSearchData() async {
+    data = await service.getSearchRoom(widget.checkIn, widget.checkOut);
+  }
+
+  @override
+  void initState() {
+    fetchSearchData();
+    super.initState();
+  }
 
   final GuestAndRoomController guestAndRoomController =
       Get.put(GuestAndRoomController());
@@ -31,87 +50,108 @@ class _SearchedRoomScreenState extends State<SearchedRoomScreen> {
       appBar: const CustomAppBar(),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "The Grand Haven",
-                style: CustomStyle.blueTitleText,
-              ),
-              const VerticalSpace(height: 15),
-              Row(
+          child: Obx(() {
+            if (loadingController.isLoading.value) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: ColorTheme.blue,
+                ),
+              );
+            }
+            if (data == null) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: ColorTheme.blue,
+                ),
+              );
+            } else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomTileWidget(
-                      child: Row(
+                  Text(
+                    "The Grand Haven",
+                    style: CustomStyle.blueTitleText,
+                  ),
+                  const VerticalSpace(height: 15),
+                  Row(
                     children: [
-                      Icon(
-                        Icons.calendar_month_outlined,
-                        color: ColorTheme.grey,
-                      ),
-                      const HorizontalSpace(width: 5),
-                      Text(
-                        "${controller.checkInDate.value} - ${controller.checkOutDate.value}",
+                      CustomTileWidget(
+                          child: Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            color: ColorTheme.grey,
+                          ),
+                          const HorizontalSpace(width: 5),
+                          Text(
+                            "${controller.checkInDate.value} - ${controller.checkOutDate.value}",
+                            style: CustomStyle.blueTextStyle,
+                          )
+                        ],
+                      )),
+                      const HorizontalSpace(width: 15),
+                      CustomTileWidget(
+                          child: Text(
+                        "${guestAndRoomController.guests.value} Guests",
                         style: CustomStyle.blueTextStyle,
-                      )
-                    ],
-                  )),
-                  const HorizontalSpace(width: 15),
-                  CustomTileWidget(
-                      child: Text(
-                    "${guestAndRoomController.guests.value} Guests",
-                    style: CustomStyle.blueTextStyle,
-                  ))
-                ],
-              ),
-              const VerticalSpace(height: 10),
-              SizedBox(
-                height: ScreenSize.height * 0.7,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Recommended Hotels",
-                        style: CustomStyle.blueTitleText,
-                      ),
-                      //search details here
-                      SizedBox(
-                          height: ScreenSize.height * 0.4,
-                          child: const SearchDetails()),
-                      Text(
-                        "Business Accommodates",
-                        style: CustomStyle.blueTitleText,
-                      ),
-                      SizedBox(
-                          height: ScreenSize.height * 0.4,
-                          child: const SearchDetails()),
+                      ))
                     ],
                   ),
-                ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: CustomButton(
-                    onTap: () {
-                      Get.bottomSheet( SortBottomSheet());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.sort,
-                          size: 25,
-                          color: ColorTheme.white,
-                        ),
-                        Text(
-                          "filter search",
-                          style: CustomStyle.buttonTextStyl,
-                        )
-                      ],
+                  const VerticalSpace(height: 10),
+                  SizedBox(
+                    height: ScreenSize.height * 0.7,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Recommended Hotels",
+                            style: CustomStyle.blueTitleText,
+                          ),
+                          //search details here
+                          SizedBox(
+                              height: ScreenSize.height * 0.4,
+                              child: SearchDetails(
+                                data: data!,
+                              )),
+                          Text(
+                            "Business Accommodates",
+                            style: CustomStyle.blueTitleText,
+                          ),
+                          SizedBox(
+                              height: ScreenSize.height * 0.4,
+                              child: SearchDetails(
+                                data: data!,
+                              )),
+                        ],
+                      ),
                     ),
-                  )),
-            ],
-          )),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: CustomButton(
+                        onTap: () {
+                          Get.bottomSheet(SortBottomSheet());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.sort,
+                              size: 25,
+                              color: ColorTheme.white,
+                            ),
+                            Text(
+                              "filter search",
+                              style: CustomStyle.buttonTextStyl,
+                            )
+                          ],
+                        ),
+                      )),
+                ],
+              );
+            }
+          })),
     );
   }
 }

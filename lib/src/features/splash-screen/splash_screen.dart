@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: ScreenSize.height * 0.2,
                 child: Lottie.asset(AnimationAsset.splashLoading)),
             const Text(
-              "Hotel Mahabub",
+              "The Grand Haven",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,

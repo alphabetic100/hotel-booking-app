@@ -13,7 +13,7 @@ class FavorateService {
   Future<void> postFavorites(int roomNumber) async {
     try {
       final response = await dio.post(
-        api + addFavorite,
+        api + addFavorites,
         data: {
           "room_number": roomNumber,
         },

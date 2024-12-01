@@ -11,6 +11,7 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/core/custom/custom_tile_widget.dart';
+import 'package:hotel_booking_app/src/features/all-rooms/controller/add_favorite_controller.dart';
 import 'package:hotel_booking_app/src/features/booking/presentation/booking_summary.dart';
 import 'package:hotel_booking_app/src/features/home/components/date-picker/controller/date_picker_controller.dart';
 import 'package:hotel_booking_app/src/features/home/controller/guest_and_room_controller.dart';
@@ -36,6 +37,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
       Get.put(GuestAndRoomController());
   final DatePickerController datePickerController =
       Get.put(DatePickerController());
+  final AddFavoriteController favoriteController =
+      Get.put(AddFavoriteController());
   RoomDetails? roomData;
   Future fetchRoomData() async {
     roomData = await service.getRoomDetails(widget.roomNumber);
@@ -66,12 +69,23 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
             ),
             const HorizontalSpace(width: 10),
             GestureDetector(
-              onTap: () {},
-              child: Icon(
-                Icons.favorite_border,
-                color: ColorTheme.blue,
-              ),
-            ),
+                onTap: () {},
+                child: Obx(
+                  () => GestureDetector(
+                    onTap: () {
+                      favoriteController
+                          .addFavorite(int.parse(widget.roomNumber));
+                    },
+                    child: Icon(
+                      favoriteController
+                              .isFavorite(int.parse(widget.roomNumber))
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      color: ColorTheme.blue,
+                      size: 25,
+                    ),
+                  ),
+                )),
             const HorizontalSpace(width: 15),
           ],
         ),

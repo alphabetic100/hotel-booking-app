@@ -20,7 +20,6 @@ class GridComponents extends StatelessWidget {
   final String oldPrice;
   final AddFavoriteController favoriteController =
       Get.put(AddFavoriteController());
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,10 +47,11 @@ class GridComponents extends StatelessWidget {
                       child: Obx(
                         () => GestureDetector(
                           onTap: () {
-                            favoriteController.addFavorite(index);
+                            favoriteController
+                                .addFavorite(int.parse(roomNumber));
                           },
                           child: Icon(
-                            favoriteController.isFavorite(index)
+                            favoriteController.isFavorite(int.parse(roomNumber))
                                 ? Icons.favorite
                                 : Icons.favorite_border_outlined,
                             color: ColorTheme.blue,

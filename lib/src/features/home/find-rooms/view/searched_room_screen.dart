@@ -49,8 +49,9 @@ class _SearchedRoomScreenState extends State<SearchedRoomScreen> {
       backgroundColor: ColorTheme.scaffoldBackgroundColor,
       appBar: const CustomAppBar(),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Obx(() {
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Obx(
+          () {
             if (loadingController.isLoading.value) {
               return Center(
                 child: CircularProgressIndicator(
@@ -98,60 +99,64 @@ class _SearchedRoomScreenState extends State<SearchedRoomScreen> {
                     ],
                   ),
                   const VerticalSpace(height: 10),
-                  SizedBox(
-                    height: ScreenSize.height * 0.7,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Recommended Hotels",
-                            style: CustomStyle.blueTitleText,
-                          ),
-                          //search details here
-                          SizedBox(
-                              height: ScreenSize.height * 0.4,
-                              child: SearchDetails(
-                                data: data!,
-                              )),
-                          Text(
-                            "Business Accommodates",
-                            style: CustomStyle.blueTitleText,
-                          ),
-                          SizedBox(
-                              height: ScreenSize.height * 0.4,
-                              child: SearchDetails(
-                                data: data!,
-                              )),
-                        ],
+                  Expanded(
+                    child: SizedBox(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Recommended Hotels",
+                              style: CustomStyle.blueTitleText,
+                            ),
+                            //search details here
+                            SizedBox(
+                                height: ScreenSize.height * 0.4,
+                                child: SearchDetails(
+                                  data: data!,
+                                )),
+                            Text(
+                              "Business Accommodates",
+                              style: CustomStyle.blueTitleText,
+                            ),
+                            SizedBox(
+                                height: ScreenSize.height * 0.4,
+                                child: SearchDetails(
+                                  data: data!,
+                                )),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: CustomButton(
-                        onTap: () {
-                          Get.bottomSheet(SortBottomSheet());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.sort,
-                              size: 25,
-                              color: ColorTheme.white,
-                            ),
-                            Text(
-                              "filter search",
-                              style: CustomStyle.buttonTextStyl,
-                            )
-                          ],
-                        ),
-                      )),
+                    padding: const EdgeInsets.all(12),
+                    child: CustomButton(
+                      onTap: () {
+                        Get.bottomSheet(SortBottomSheet());
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.sort,
+                            size: 25,
+                            color: ColorTheme.white,
+                          ),
+                          Text(
+                            "filter search",
+                            style: CustomStyle.buttonTextStyl,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               );
             }
-          })),
+          },
+        ),
+      ),
     );
   }
 }

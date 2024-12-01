@@ -33,7 +33,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   final DetailLoadingController loadingController =
       Get.put(DetailLoadingController());
   final GuestAndRoomController guestAndRoomController =
-      GuestAndRoomController();
+      Get.put(GuestAndRoomController());
   final DatePickerController datePickerController =
       Get.put(DatePickerController());
   RoomDetails? roomData;
@@ -296,7 +296,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           child: CustomButton(
                               onTap: () {
                                 var data = roomData!.data!.roomData!;
-                                print(datePickerController.checkInDate.value);
+
                                 if (datePickerController.checkInDate.value !=
                                         "DD/MM/YY" &&
                                     datePickerController.checkOutDate.value !=

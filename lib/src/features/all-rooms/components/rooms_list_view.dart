@@ -76,9 +76,10 @@ class RoomsListViewState extends State<RoomsListView> {
         );
       } else {
         return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: Get.width * 0.45,
+              width: Get.width * 0.44,
               child: ListView.builder(
                 controller: _controller1,
                 itemCount: oddEvenList.eveList.length,
@@ -130,7 +131,7 @@ class RoomsListViewState extends State<RoomsListView> {
               ),
             ),
             SizedBox(
-              width: Get.width * 0.45,
+              width: Get.width * 0.44,
               child: ListView.builder(
                 controller: _controller2,
                 itemCount: oddEvenList.oddList.length,

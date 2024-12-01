@@ -19,7 +19,7 @@ class SearchDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: ScreenSize.height * 0.37,
+          height: ScreenSize.height * 0.4,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 10,
@@ -50,6 +50,7 @@ class SearchDetails extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(

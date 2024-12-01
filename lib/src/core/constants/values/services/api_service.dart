@@ -7,3 +7,5 @@ const String addFavorite = "/api/add/favourite";
 const String getFavorite = "/api/get/favourite";
 const String roomDetails = "/api/details/rooms/";
 const String queryUrl = "/api/search/booking_room";
+const String bookingProcess = "/api/add/bookingprocess";
+const String bookingCompleate = "/api/add/bookingcomplete";

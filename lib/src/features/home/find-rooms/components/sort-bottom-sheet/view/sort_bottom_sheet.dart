@@ -17,7 +17,7 @@ class SortBottomSheet extends StatelessWidget {
   final PriceSelectionSortController priceSelectionSortController =
       Get.put(PriceSelectionSortController());
   final RattingController rattingController = Get.put(RattingController());
-  final SlideController slideController = SlideController();
+  final SlideController slideController = Get.put(SlideController());
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -22,7 +22,7 @@ class RoomDetailsService {
           'Authorization': 'Bearer $token',
         }),
       );
-      print(response.statusCode);
+      
       if (response.statusCode == 200) {
         loadingController.isLoading.value = false;
         return RoomDetails.fromJson(response.data);

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
+import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
 import 'package:hotel_booking_app/src/core/constants/values/static_values.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/features/booking/components/booking_details_item.dart';
+import 'package:hotel_booking_app/src/features/booking/controller/payment_mathod_controller.dart';
 import 'package:hotel_booking_app/src/features/booking/func/amount_calculator.dart';
+import 'package:hotel_booking_app/src/features/make-payment/bkash-payment/service/bkash_pay_service.dart';
 
 class BookingSummary extends StatelessWidget {
-  const BookingSummary({
+  BookingSummary({
     super.key,
     required this.roomNumber,
     required this.currentPrice,
@@ -27,7 +30,9 @@ class BookingSummary extends StatelessWidget {
   final String checkOUt;
   final String guests;
   final String rooms;
-
+  final PaymentMathodController mathodController =
+      Get.put(PaymentMathodController());
+  final BkashPayService bkashPayService = BkashPayService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,20 +105,54 @@ class BookingSummary extends StatelessWidget {
                       value:
                           "${amountCalculator(int.parse(currentPrice), int.parse(rooms)).toString()}\$",
                     ),
-                    const BookingDetailsItem(label: "Tax", value: "32"),
+                    const BookingDetailsItem(label: "Tax", value: "10%"),
                     BookingDetailsItem(
                         label: "Total",
                         value:
-                            "${totalAmountCalculator(int.parse(currentPrice), int.parse(rooms), 32)}\$"),
+                            "${totalAmountCalculator(int.parse(currentPrice), int.parse(rooms), 10)}\$"),
                   ],
                 ),
               ),
+            ),
+            Column(
+              children: [
+                Text(
+                  "Select your payment mathod:",
+                  style: CustomStyle.blackStyle,
+                ),
+                const VerticalSpace(height: 10),
+                GestureDetector(
+                    onTap: () => mathodController.select(),
+                    child: Obx(
+                      () => Container(
+                        height: 60,
+                        width: ScreenSize.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            color: mathodController.isSelected.value
+                                ? Colors.pinkAccent.withOpacity(0.1)
+                                : Colors.white,
+                            border: Border.all(
+                              color: mathodController.isSelected.value
+                                  ? const Color(0xFFED0A80)
+                                  : Colors.grey,
+                              width: 2,
+                            ),
+                            image: const DecorationImage(
+                                image: AssetImage("$imageAsst/Bkash-logo.png"),
+                                filterQuality: FilterQuality.high)),
+                      ),
+                    )),
+                const VerticalSpace(height: 10)
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      // bkashPayService.bkashPayment(context);
+                    },
                     child: Center(
                       child: Text(
                         "CONTINUE TO PAYMENT",

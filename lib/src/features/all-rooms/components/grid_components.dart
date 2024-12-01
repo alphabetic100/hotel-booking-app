@@ -81,7 +81,13 @@ class GridComponents extends StatelessWidget {
                 color: ColorTheme.grey,
               ),
               const HorizontalSpace(width: 5),
-              const Text("Dhaka,Bangladesh"),
+              SizedBox(
+                width: Get.width * 0.31,
+                child: const Text(
+                  "Dhaka,Bangladesh",
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           //price option
@@ -90,12 +96,18 @@ class GridComponents extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "\$$currentPrice - $oldPrice USD",
+                  "\$$currentPrice-$oldPrice USD",
                   style: CustomStyle.blueTextStyle,
                 ),
-                const Text(
-                  "/Night",
-                  style: TextStyle(color: Colors.black),
+                SizedBox(
+                  width: Get.width * 0.113,
+                  child: const Text(
+                    "/Night",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        overflow: TextOverflow.ellipsis),
+                  ),
                 )
               ],
             ),

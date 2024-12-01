@@ -124,10 +124,19 @@ class LogInScreen extends StatelessWidget {
               const VerticalSpace(height: 35),
               CustomButton(
                 onTap: () async {
-                  if (emailValidationChecker(emailValue) &&
-                      passwordValidationChecker(passwordValue)) {
+                  if (!emailValidationChecker(emailValue) ||
+                      !passwordValidationChecker(passwordValue)) {
+                    return;
+                  }
+
+                  loadingController.isLoading.value = true;
+
+                  try {
                     final userData = await postLogin.userLogIn();
-                    if (!postLogin.loginError && userData!.success) {
+
+                    if (userData != null &&
+                        !postLogin.loginError &&
+                        userData.success) {
                       Get.defaultDialog(
                         backgroundColor: Colors.transparent,
                         title: "Success",
@@ -141,45 +150,57 @@ class LogInScreen extends StatelessWidget {
                         middleText: userData.message,
                         middleTextStyle: CustomStyle.whiteStyle,
                       );
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomePage();
-                            },
-                          ),
-                          (route) => false,
-                        );
-                      });
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      Navigator.of(Get.context!).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                        (route) => false,
+                      );
                     } else {
                       Get.defaultDialog(
-                        title: "Worning",
+                        title: "Warning",
                         titleStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold),
-                        middleText: userData!.message,
+                          fontSize: 20,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        middleText: userData?.message ?? "An error occurred",
                         middleTextStyle: const TextStyle(
                           color: Colors.grey,
                         ),
-                        onConfirm: () {
-                          Navigator.of(context).pop();
-                        },
+                        onConfirm: () => Get.back(),
                       );
-                      apiErrorTextController.massage.value = userData.message;
+                      apiErrorTextController.massage.value =
+                          userData?.message ?? "";
                     }
+                  } catch (e) {
+                    // Handle exceptions by showing a DefaultDialog
+                    Get.defaultDialog(
+                      title: "Error",
+                      titleStyle: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      middleText: "User name or password incorrect!",
+                      middleTextStyle: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                      onConfirm: () => Get.back(),
+                    );
+                  } finally {
+                    loadingController.isLoading.value = false;
                   }
                 },
                 child: Center(
                   child: Obx(
                     () => loadingController.isLoading.value
-                        ? CircularProgressIndicator(
-                            color: ColorTheme.white,
-                          )
+                        ? CircularProgressIndicator(color: ColorTheme.white)
                         : Text("Continue", style: CustomStyle.buttonTextStyl),
                   ),
                 ),
               ),
+
               const VerticalSpace(height: 20),
               const XOr(
                 orTitle: "continue with",

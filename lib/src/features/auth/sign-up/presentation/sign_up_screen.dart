@@ -135,22 +135,42 @@ class SignUpScreen extends StatelessWidget {
                 const VerticalSpace(height: 35),
                 CustomButton(
                   onTap: () async {
-                    final userData = await postSignup.createAccount();
                     try {
-                      if (userData!.success) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => VerifyUserScreen()));
-                      }
-                    } catch (e) {
-                      Get.defaultDialog(
-                          title: "Worning",
+                      final userData = await postSignup.createAccount();
+                      if (userData != null && userData.success) {
+                        Navigator.of(Get.context!).push(MaterialPageRoute(
+                          builder: (context) => VerifyUserScreen(),
+                        ));
+                      } else {
+                        Get.defaultDialog(
+                          title: "Error",
                           titleStyle: const TextStyle(
                             color: Colors.red,
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             fontFamily: openSans,
                           ),
-                          middleText: "something went worng");
+                          middleText:
+                              userData?.message ?? "Account creation failed.",
+                        );
+                      }
+                    } catch (e) {
+                      Get.defaultDialog(
+                        title: "Warning",
+                        titleStyle: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: openSans,
+                        ),
+                        middleText:
+                            "Email is allready exist or something went wrong",
+                        onConfirm: () {
+                          Get.back();
+                        },
+                      );
+                    } finally {
+                      loadingController.isLoading.value = false;
                     }
                   },
                   child: Center(
@@ -163,6 +183,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const VerticalSpace(height: 20),
                 const XOr(
                   orTitle: "signup with",

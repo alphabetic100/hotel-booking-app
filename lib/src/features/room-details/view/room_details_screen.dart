@@ -21,9 +21,13 @@ import 'package:hotel_booking_app/src/features/room-details/service/room_details
 
 class RoomDetailsScreen extends StatefulWidget {
   const RoomDetailsScreen(
-      {super.key, required this.roomNumber, required this.image});
+      {super.key,
+      required this.roomNumber,
+      required this.image,
+      this.isFromSearch = false});
   final String roomNumber;
   final String image;
+  final bool isFromSearch;
 
   @override
   State<RoomDetailsScreen> createState() => _RoomDetailsScreenState();
@@ -277,91 +281,106 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   ),
                 )),
                 //Bottom bar
-                Container(
-                  height: ScreenSize.height * 0.1,
-                  width: ScreenSize.width,
-                  color: ColorTheme.white,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 10,
-                      bottom: 5,
-                      top: 5,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "\$${roomData!.data!.roomData!.currentPrice} USD",
-                              style: CustomStyle.titleStyle,
-                            ),
-                            Text(
-                              "/night",
-                              style: CustomStyle.blackStyle,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: ScreenSize.width * 0.4,
-                          child: CustomButton(
-                              onTap: () {
-                                var data = roomData!.data!.roomData!;
+                widget.isFromSearch
+                    ? Container(
+                        height: ScreenSize.height * 0.1,
+                        width: ScreenSize.width,
+                        color: ColorTheme.white,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            right: 10,
+                            bottom: 5,
+                            top: 5,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "\$${roomData!.data!.roomData!.currentPrice} USD",
+                                    style: CustomStyle.titleStyle,
+                                  ),
+                                  Text(
+                                    "/night",
+                                    style: CustomStyle.blackStyle,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: ScreenSize.width * 0.4,
+                                child: CustomButton(
+                                    onTap: () {
+                                      var data = roomData!.data!.roomData!;
 
-                                if (datePickerController.checkInDate.value !=
-                                        "DD/MM/YY" &&
-                                    datePickerController.checkOutDate.value !=
-                                        "DD/MM/YY") {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => BookingSummary(
-                                            roomNumber:
-                                                data.roomNumber.toString(),
-                                            currentPrice:
-                                                data.currentPrice.toString(),
-                                            bookingDate: DateTime.now()
-                                                .toString()
-                                                .substring(0, 10),
-                                            checkIN: datePickerController
-                                                .checkInDate.value,
-                                            checkOUt: datePickerController
-                                                .checkOutDate.value,
-                                            guests: guestAndRoomController
-                                                .guests.value
-                                                .toString(),
-                                            rooms: guestAndRoomController
-                                                .room.value
-                                                .toString(),
-                                          )));
-                                } else {
-                                  Get.defaultDialog(
-                                    title: "Allert",
-                                    titleStyle:
-                                        const TextStyle(color: Colors.red),
-                                    middleText:
-                                        "Please select your check-in and check-out date from home",
-                                    middleTextStyle:
-                                        const TextStyle(color: Colors.black),
-                                    onCancel: () {},
-                                    onConfirm: () {
-                                      Get.back();
+                                      if (datePickerController
+                                                  .checkInDate.value !=
+                                              "DD/MM/YY" &&
+                                          datePickerController
+                                                  .checkOutDate.value !=
+                                              "DD/MM/YY") {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BookingSummary(
+                                                      roomNumber: data
+                                                          .roomNumber
+                                                          .toString(),
+                                                      currentPrice: data
+                                                          .currentPrice
+                                                          .toString(),
+                                                      bookingDate:
+                                                          DateTime.now()
+                                                              .toString()
+                                                              .substring(0, 10),
+                                                      checkIN:
+                                                          datePickerController
+                                                              .checkInDate
+                                                              .value,
+                                                      checkOUt:
+                                                          datePickerController
+                                                              .checkOutDate
+                                                              .value,
+                                                      guests:
+                                                          guestAndRoomController
+                                                              .guests.value
+                                                              .toString(),
+                                                      rooms:
+                                                          guestAndRoomController
+                                                              .room.value
+                                                              .toString(),
+                                                    )));
+                                      } else {
+                                        Get.defaultDialog(
+                                          title: "Allert",
+                                          titleStyle: const TextStyle(
+                                              color: Colors.red),
+                                          middleText:
+                                              "Please select your check-in and check-out date from home",
+                                          middleTextStyle: const TextStyle(
+                                              color: Colors.black),
+                                          onCancel: () {},
+                                          onConfirm: () {
+                                            Get.back();
+                                          },
+                                        );
+                                      }
                                     },
-                                  );
-                                }
-                              },
-                              child: Center(
-                                child: Text(
-                                  "Book now",
-                                  style: CustomStyle.buttonTextStyl,
-                                ),
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                                    child: Center(
+                                      child: Text(
+                                        "Book now",
+                                        style: CustomStyle.buttonTextStyl,
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    : const Center()
               ],
             );
           }

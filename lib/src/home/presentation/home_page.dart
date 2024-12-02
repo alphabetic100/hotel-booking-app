@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
-import 'package:hotel_booking_app/src/features/chats/view/chat_screen.dart';
 import 'package:hotel_booking_app/src/features/favorites/view/favorites_screen.dart';
 import 'package:hotel_booking_app/src/features/global/functions/fetch_profile_details.dart';
 import 'package:hotel_booking_app/src/features/home/view/home_screen.dart';
@@ -37,7 +36,6 @@ class _HomePageState extends State<HomePage> {
           const HomeScreen(),
           const FavoritesScreen(),
           const AllRooms(),
-          const ChatScreen(),
           ProfileScreen()
         ],
       ),

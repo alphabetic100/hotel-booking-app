@@ -22,7 +22,7 @@ class SearchDetails extends StatelessWidget {
           height: ScreenSize.height * 0.4,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
+              itemCount: data.data.roomData.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(15),
@@ -30,6 +30,7 @@ class SearchDetails extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => RoomDetailsScreen(
+                              isFromSearch: true,
                               roomNumber: data.data.roomData[index].roomNumber,
                               image: image1)));
                     },

@@ -32,9 +32,13 @@ class BookingSummary extends StatelessWidget {
   final String rooms;
   final PaymentMathodController mathodController =
       Get.put(PaymentMathodController());
-  final BkashPayService bkashPayService = BkashPayService();
+  final BkashPayService bkashPayService = Get.put(BkashPayService());
+
   @override
   Widget build(BuildContext context) {
+    int amount = amountCalculator(int.parse(currentPrice), int.parse(rooms));
+    double totalAmount =
+        totalAmountCalculator(int.parse(currentPrice), int.parse(rooms), 10);
     return Scaffold(
       backgroundColor: ColorTheme.scaffoldBackgroundColor,
       appBar: const CustomAppBar(
@@ -102,14 +106,10 @@ class BookingSummary extends StatelessWidget {
                     const VerticalSpace(height: 20),
                     BookingDetailsItem(
                       label: "Amount x $rooms",
-                      value:
-                          "${amountCalculator(int.parse(currentPrice), int.parse(rooms)).toString()}\$",
+                      value: "$amount\$",
                     ),
                     const BookingDetailsItem(label: "Tax", value: "10%"),
-                    BookingDetailsItem(
-                        label: "Total",
-                        value:
-                            "${totalAmountCalculator(int.parse(currentPrice), int.parse(rooms), 10)}\$"),
+                    BookingDetailsItem(label: "Total", value: "$totalAmount\$"),
                   ],
                 ),
               ),
@@ -150,15 +150,28 @@ class BookingSummary extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: CustomButton(
-                    onTap: () {
-                      // bkashPayService.bkashPayment(context);
+                    onTap: () async {
+                      mathodController.isSelected.value
+                          ? await bkashPayService.bkashPayment(
+                              context, totalAmount)
+                          : Get.defaultDialog(
+                              title: "Allert",
+                              titleStyle: const TextStyle(color: Colors.red),
+                              middleText: "Please select your payment mathode",
+                              onConfirm: () => Get.back(),
+                            );
                     },
                     child: Center(
-                      child: Text(
-                        "CONTINUE TO PAYMENT",
-                        style: CustomStyle.buttonTextStyl,
-                      ),
-                    )),
+                        child: Obx(() => bkashPayService.isLoading.value
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                  color: ColorTheme.white,
+                                ),
+                              )
+                            : Text(
+                                "Continue to payment",
+                                style: CustomStyle.buttonTextStyl,
+                              )))),
               ),
             )
           ],

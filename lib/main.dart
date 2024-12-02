@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: AppThemeData.themeData,
+      theme: AppThemeData.themeData,      
       debugShowCheckedModeBanner: false,
       home: const SafeArea(child: SplashScreen()),
     );

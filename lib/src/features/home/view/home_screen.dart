@@ -247,7 +247,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (datePickerController.checkInDate.value !=
                                       "DD/MM/YY" &&
                                   datePickerController.checkOutDate.value !=
-                                      "DD/MM/YY") {
+                                      "DD/MM/YY" &&
+                                  datePickerController.checkInDate.value !=
+                                      datePickerController.checkOutDate.value) {
                                 String checkIn = datePickerController
                                     .checkInDate.value
                                     .replaceAll("/", "-");
@@ -259,6 +261,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                           checkIn: checkIn,
                                           checkOut: checkOut,
                                         )));
+                              } else {
+                                String errorMassage = "";
+                                if (datePickerController.checkInDate.value ==
+                                    datePickerController.checkInDate.value) {
+                                  errorMassage =
+                                      "Check-in and check-out date is not valid, please select some valid data";
+                                }
+                                Get.defaultDialog(
+                                  title: "Error",
+                                  titleStyle:
+                                      const TextStyle(color: Colors.red),
+                                  middleText: errorMassage,
+                                  onConfirm: () {
+                                    Get.back();
+                                  },
+                                );
                               }
                             },
                             child: Center(

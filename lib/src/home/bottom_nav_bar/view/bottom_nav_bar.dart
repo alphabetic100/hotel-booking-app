@@ -17,7 +17,7 @@ class CustomNavBar extends StatelessWidget {
             textSize: 15,
             activeColor: ColorTheme.blue,
             padding:
-                const EdgeInsets.only(top: 20, bottom: 30, left: 10, right: 10),
+                const EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
             style: GnavStyle.oldSchool,
             tabs: [
               GButton(
@@ -36,12 +36,6 @@ class CustomNavBar extends StatelessWidget {
                 icon: Icons.broadcast_on_home_outlined,
                 iconColor: ColorTheme.grey,
                 text: "All Rooms",
-                textStyle: CustomStyle.titleStyle,
-              ),
-              GButton(
-                icon: Icons.chat_outlined,
-                iconColor: ColorTheme.grey,
-                text: "Chats",
                 textStyle: CustomStyle.titleStyle,
               ),
               GButton(

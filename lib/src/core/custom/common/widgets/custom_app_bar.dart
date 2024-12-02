@@ -9,11 +9,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle,
     this.actions,
     this.ontapBackButton,
+    this.backButton = true,
   });
   final String title;
   final bool? centerTitle;
   final List<Widget>? actions;
   final VoidCallback? ontapBackButton;
+  final bool backButton;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   @override
@@ -28,23 +30,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       centerTitle: centerTitle,
       actions: actions,
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: 50,
-          width: 50,
-          child: GestureDetector(
-            onTap: ontapBackButton ?? () => Navigator.of(context).pop(),
-            child: Center(
-              child: Icon(
-                Icons.arrow_back,
-                color: ColorTheme.blue,
-                size: 30,
+      leading: backButton
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 50,
+                width: 50,
+                child: GestureDetector(
+                  onTap: ontapBackButton ?? () => Navigator.of(context).pop(),
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: ColorTheme.blue,
+                      size: 30,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      ),
+            )
+          : null,
     );
   }
 }

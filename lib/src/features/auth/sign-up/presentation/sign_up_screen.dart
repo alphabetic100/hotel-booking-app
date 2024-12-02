@@ -21,7 +21,11 @@ import 'package:hotel_booking_app/src/features/auth/sign-up/temp/sign_up_values.
 import 'package:hotel_booking_app/src/features/auth/verify-user/presentation/verify_user_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+  SignUpScreen({
+    super.key,
+    this.appbarBackButton = true,
+  });
+  final bool appbarBackButton;
   final LocalErrorTextController errorTextController =
       Get.put(LocalErrorTextController());
   final PostSignup postSignup = PostSignup();
@@ -35,7 +39,9 @@ class SignUpScreen extends StatelessWidget {
       height: ScreenSize.height,
       width: ScreenSize.width,
       child: Scaffold(
-        appBar: const CustomAppBar(),
+        appBar: CustomAppBar(
+          backButton: appbarBackButton,
+        ),
         backgroundColor: ColorTheme.scaffoldBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

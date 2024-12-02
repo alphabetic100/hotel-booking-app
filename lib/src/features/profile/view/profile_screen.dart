@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
@@ -15,10 +17,14 @@ import 'package:hotel_booking_app/src/features/global/functions/clear_profile_da
 import 'package:hotel_booking_app/src/features/global/functions/fetch_profile_details.dart';
 import 'package:hotel_booking_app/src/features/profile/components/edit_profile_view.dart';
 import 'package:hotel_booking_app/src/features/profile/components/recently_visited_screen.dart';
+import 'package:hotel_booking_app/src/features/profile/edit-profile/image_picker_service.dart';
+import 'package:hotel_booking_app/src/features/profile/edit-profile/local-service/image_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   final AuthService authService = AuthService();
+  final ImagePickerService imagePickerService = Get.put(ImagePickerService());
+  final ImageService imageService = ImageService();
 
   @override
   Widget build(BuildContext context) {
@@ -62,28 +68,33 @@ class ProfileScreen extends StatelessWidget {
             ),
             // Profile Image Box
             Positioned(
-              top: ScreenSize.height * 0.23,
-              right: ScreenSize.width * 0.1,
-              child: Container(
-                height: ScreenSize.height * 0.15,
-                width: ScreenSize.height * 0.15,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  color: ColorTheme.scaffoldBackgroundColor,
-                  // image: DecorationImage(
-                  //     image: AssetImage("assets/images/image1.png"),
-                  //     fit: BoxFit.cover),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorTheme.grey.withOpacity(0.2),
-                      offset: const Offset(-1, -2),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                    )
-                  ],
-                ),
-              ),
-            ),
+                top: ScreenSize.height * 0.23,
+                right: ScreenSize.width * 0.1,
+                child: Obx(
+                  () => Container(
+                    height: ScreenSize.height * 0.15,
+                    width: ScreenSize.height * 0.15,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: ColorTheme.scaffoldBackgroundColor,
+                      image: imagePickerService.imagePath.value.isEmpty
+                          ? null
+                          : DecorationImage(
+                              image: FileImage(
+                                  File(imagePickerService.imagePath.value)),
+                              fit: BoxFit.cover,
+                            ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorTheme.grey.withOpacity(0.2),
+                          offset: const Offset(-1, -2),
+                          spreadRadius: 3,
+                          blurRadius: 7,
+                        )
+                      ],
+                    ),
+                  ),
+                )),
             //Bottom part of Profile screen
             Positioned(
                 top: ScreenSize.height * 0.38,
@@ -124,10 +135,10 @@ class ProfileScreen extends StatelessWidget {
                             }));
                           },
                         ),
-                        //All Bookings Button
+
                         CustomTileButton(
                           width: ScreenSize.width,
-                          title: "All bookings",
+                          title: "All Rooms",
                           prefixIcon: Icons.all_inclusive,
                           onTap: () {
                             Navigator.of(context)
@@ -170,21 +181,21 @@ class ProfileScreen extends StatelessWidget {
                           prefixIcon: Icons.logout,
                           onTap: () {
                             Get.defaultDialog(
-                              // backgroundColor: Colors.transparent,
-
                               title: "Worning",
                               titleStyle: CustomStyle.redTitleStyle,
                               middleText: "Are you sure you want to log out?",
                               middleTextStyle: CustomStyle.regularStyle,
                               textCancel: "No",
-
                               textConfirm: "Yes",
-                              onConfirm: () {
+                              onConfirm: () async {
                                 authService.removeToken();
+                                await imageService.removeToken();
                                 clearProfileDetails();
-                                Navigator.pushAndRemoveUntil(context,
+                                Navigator.pushAndRemoveUntil(Get.context!,
                                     MaterialPageRoute(builder: (context) {
-                                  return SignUpScreen();
+                                  return SignUpScreen(
+                                    appbarBackButton: false,
+                                  );
                                 }), (route) => false);
                               },
                             );

@@ -1,15 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/colors/colors.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/screen_size.dart';
 import 'package:hotel_booking_app/src/core/constants/utils/styles/custom_text_style.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
+import 'package:hotel_booking_app/src/features/profile/edit-profile/image_picker_service.dart';
+import 'package:hotel_booking_app/src/features/profile/edit-profile/local-service/image_service.dart';
 
 class EditProfileView extends StatelessWidget {
-  const EditProfileView(
-      {super.key, required this.screenHeight, required this.screenWidth});
+  EditProfileView({
+    super.key,
+    required this.screenHeight,
+    required this.screenWidth,
+  });
   final double screenHeight;
   final double screenWidth;
+  final ImagePickerService imagePickerService = Get.put(ImagePickerService());
+  final ImageService service = ImageService();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,7 +79,9 @@ class EditProfileView extends StatelessWidget {
                   children: [
                     //image from gallery
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        await imagePickerService.selectFromGallery();
+                      },
                       child: Container(
                         height: 50,
                         width: ScreenSize.width * 0.3,
@@ -102,7 +114,9 @@ class EditProfileView extends StatelessWidget {
                     const VerticalSpace(height: 15),
                     // Image from camera
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        await imagePickerService.takePhoto();
+                      },
                       child: Container(
                         height: 50,
                         width: ScreenSize.width * 0.3,
@@ -134,25 +148,46 @@ class EditProfileView extends StatelessWidget {
                     )
                   ],
                 ),
-                Container(
-                  height: ScreenSize.height * 0.15,
-                  width: ScreenSize.height * 0.15,
-                  decoration: BoxDecoration(
+                Obx(() {
+                  return Container(
+                    height: ScreenSize.height * 0.15,
+                    width: ScreenSize.height * 0.15,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18),
-                      color: Colors.green),
-                )
+                      color: Colors.green,
+                      image: imagePickerService.isLoading.value ||
+                              imagePickerService.tempImagePath.value.isEmpty
+                          ? null
+                          : DecorationImage(
+                              image: FileImage(
+                                  File(imagePickerService.tempImagePath.value)),
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                    child: imagePickerService.isLoading.value
+                        ? const Center(child: CircularProgressIndicator())
+                        : null,
+                  );
+                }),
               ],
             ),
             Expanded(
                 child: Align(
               alignment: Alignment.bottomCenter,
               child: CustomButton(
+                  onTap: () {
+                    if (imagePickerService.tempImagePath.value.isNotEmpty) {
+                      imagePickerService.saveImagePath(
+                          imagePickerService.tempImagePath.value);
+                      Get.back();
+                    }
+                  },
                   child: Center(
-                child: Text(
-                  "Save",
-                  style: CustomStyle.buttonTextStyl,
-                ),
-              )),
+                    child: Text(
+                      "Save",
+                      style: CustomStyle.buttonTextStyl,
+                    ),
+                  )),
             ))
           ],
         ),

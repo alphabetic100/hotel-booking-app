@@ -20,7 +20,7 @@ class BookingCompleate {
       "transaction_number": transactionNumber,
     };
     try {
-      final response = await dio.post(url,
+      await dio.post(url,
           data: perimeter,
           options: Options(headers: {
             'Authorization': 'Bearer $token',

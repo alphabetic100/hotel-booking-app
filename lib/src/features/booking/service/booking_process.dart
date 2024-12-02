@@ -15,7 +15,7 @@ class BookingProcess {
       "check_out_date": checkOUt,
     };
     try {
-      final response = await dio.post(url,
+      await dio.post(url,
           data: perimeter,
           options: Options(headers: {
             'Authorization': 'Bearer $token',

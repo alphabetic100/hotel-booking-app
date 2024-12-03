@@ -8,6 +8,7 @@ import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_app_bar.
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_button.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_spacing.dart';
 import 'package:hotel_booking_app/src/core/custom/common/widgets/custom_text_button.dart';
+import 'package:hotel_booking_app/src/features/auth/sign-up/temp/sign_up_values.dart';
 import 'package:hotel_booking_app/src/features/auth/verify-user/components/resend-timer/controller/timer_controller.dart';
 import 'package:hotel_booking_app/src/features/auth/verify-user/components/resend-timer/view/resend_timer.dart';
 import 'package:hotel_booking_app/src/features/auth/verify-user/components/verification-text-field/verification_text_field.dart';
@@ -56,7 +57,7 @@ class VerifyUserScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "example@gamil.com",
+                      signupEmail,
                       style: CustomStyle.regularStyle,
                       textAlign: TextAlign.center,
                     ),
